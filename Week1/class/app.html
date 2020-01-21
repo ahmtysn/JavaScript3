@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>API</title>
+  </head>
+  <body>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+      axios
+        .get('https://api.github.com/user/repos', {
+          headers: {
+            Authorization: 'Bearer f5d5347a6b0ea1bdc1e16df95b01371ed4062076',
+          },
+        })
+        .then(response => {
+          console.log(response);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+
+      function reqListener() {
+        const facts = JSON.parse(this.responseText);
+        console.log(facts);
+      }
+      var oReq = new XMLHttpRequest();
+      console.log('the request', oReq);
+      oReq.open('get', 'https://api.github.com/user/repos'); // myToken: f5d5347a6b0ea1bdc1e16df95b01371ed4062076
+      oReq.addEventListener('load', reqListener);
+      oReq.setRequestHeader(
+        'Authorization',
+        'Bearer f5d5347a6b0ea1bdc1e16df95b01371ed4062076',
+      );
+      oReq.send();
+      console.log("sent the request, let's see...");
+    </script>
+  </body>
+</html>

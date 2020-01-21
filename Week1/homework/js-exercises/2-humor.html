@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>humorImage</title>
+    <style>
+      body {
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+      function getApiXhr(url, callback) {
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', url);
+        xhr.responseType = 'json';
+        xhr.onload = () =>
+          callback(null, {
+            response: xhr.response,
+            status: xhr.status,
+            readyState: xhr.readyState,
+          });
+        xhr.onerror = () => callback('There is an error!');
+        xhr.send();
+      }
+
+      const url = 'https://xkcd.now.sh/?comic=614';
+      getApiXhr(url, (err, data) => {
+        if (err) {
+          console.error(err);
+        } else {
+          if (data.status == 200 && data.readyState == 4) {
+            console.log(data.response);
+            const h1 = document.createElement('h1');
+            h1.textContent = 'Images with XHR';
+            const img = document.createElement('img');
+            img.setAttribute('src', data.response.img);
+            document.body.appendChild(h1);
+            document.body.appendChild(img);
+          } else {
+            console.error(
+              'Error(load: ',
+              data.response,
+              'Status: ',
+              data.status,
+            );
+          }
+        }
+      });
+
+      axios
+        .get('https://xkcd.now.sh/?comic=614')
+        .then(res => {
+          console.log(res.data);
+          const h1 = document.createElement('h1');
+          h1.textContent = 'Images with AXIOS';
+          const img = document.createElement('img');
+          img.setAttribute('src', res.data.img);
+          document.body.appendChild(h1);
+          document.body.appendChild(img);
+        })
+        .catch(err => console.error(err));
+    </script>
+  </body>
+</html>

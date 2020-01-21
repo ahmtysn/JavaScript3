@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>randomUser</title>
+  </head>
+  <body>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+      function loadUsersWithXHR() {
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', 'https://www.randomuser.me/api');
+        xhr.responseType = 'json';
+        xhr.onreadystatechange = () => {
+          if (xhr.readyState == 4 && xhr.status == 200) {
+            console.log(xhr.response);
+          }
+        };
+        xhr.send();
+      }
+
+      function loadUsersWithAxios() {
+        axios
+          .get('https://www.randomuser.me/api')
+          .then(res => {
+            console.log(res.data);
+          })
+          .catch(err => console.error(err));
+      }
+
+      loadUsersWithXHR();
+      loadUsersWithAxios();
+    </script>
+  </body>
+</html>
