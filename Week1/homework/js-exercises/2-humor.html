@@ -32,13 +32,7 @@
           console.error(err);
         } else {
           if (data.status == 200 && data.readyState == 4) {
-            console.log(data.response);
-            const h1 = document.createElement('h1');
-            h1.textContent = 'Images with XHR';
-            const img = document.createElement('img');
-            img.setAttribute('src', data.response.img);
-            document.body.appendChild(h1);
-            document.body.appendChild(img);
+            makePage(data.response, 'Images with XHR');
           } else {
             console.error(
               'Error(load: ',
@@ -53,15 +47,19 @@
       axios
         .get('https://xkcd.now.sh/?comic=614')
         .then(res => {
-          console.log(res.data);
-          const h1 = document.createElement('h1');
-          h1.textContent = 'Images with AXIOS';
-          const img = document.createElement('img');
-          img.setAttribute('src', res.data.img);
-          document.body.appendChild(h1);
-          document.body.appendChild(img);
+          makePage(res.data, 'Images with AXIOS');
         })
         .catch(err => console.error(err));
+
+      function makePage(data, text) {
+        console.log(data);
+        const h1 = document.createElement('h1');
+        h1.textContent = text;
+        const img = document.createElement('img');
+        img.setAttribute('src', data.img);
+        document.body.appendChild(h1);
+        document.body.appendChild(img);
+      }
     </script>
   </body>
 </html>
