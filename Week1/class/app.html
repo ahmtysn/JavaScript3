@@ -9,10 +9,11 @@
   <body>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
+      const token = '<INSERT TOKEN HERE>';
       axios
         .get('https://api.github.com/user/repos', {
           headers: {
-            Authorization: 'Bearer f5d5347a6b0ea1bdc1e16df95b01371ed4062076',
+            Authorization: 'Bearer ' + token,
           },
         })
         .then(response => {
@@ -28,7 +29,7 @@
       }
       var oReq = new XMLHttpRequest();
       console.log('the request', oReq);
-      oReq.open('get', 'https://api.github.com/user/repos'); // myToken: f5d5347a6b0ea1bdc1e16df95b01371ed4062076
+      oReq.open('get', 'https://api.github.com/user/repos');
       oReq.addEventListener('load', reqListener);
       oReq.setRequestHeader(
         'Authorization',
