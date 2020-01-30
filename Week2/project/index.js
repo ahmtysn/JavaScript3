@@ -38,9 +38,7 @@ function renderRepoDetails(repo, ulRepo) {
     let tr = createAndAppend('tr', table);
     createAndAppend('th', tr, { text: titles[i] });
     if (i) createAndAppend('td', tr, { text: repo[keys[i]] });
-    // i is 1,2 or 3 (true values)
     else {
-      // false value, (i=0)
       const td = createAndAppend('td', tr);
       createAndAppend('a', td, {
         href: repo.html_url,
@@ -50,30 +48,29 @@ function renderRepoDetails(repo, ulRepo) {
     }
   }
 }
+
 function renderContributor(data, ulContributor) {
   for (let i = 0; i < data.length; ++i) {
-    const li = createAndAppend('li', ulContributor);
-
-    const table = createAndAppend('table', li);
-    let tr = createAndAppend('tr', table, { class: 'tr' });
-    let th = createAndAppend('th', tr, { class: 'th' });
-    let img = createAndAppend('img', th, {
-      src: data[i].avatar_url,
-      width: '50px',
-      height: '50px',
+    const li = createAndAppend('li', ulContributor, {
+      class: 'contribution-container',
     });
-    createAndAppend('a', th, {
+    createAndAppend('img', li, {
+      src: data[i].avatar_url,
+      class: 'contribution-avatar',
+    });
+    createAndAppend('a', li, {
       text: data[i].login,
       href: data[i].html_url,
       target: '_blank',
-      class: 'a',
+      class: 'contribution-name',
     });
-    const td = createAndAppend('td', tr, {
+    createAndAppend('span', li, {
       text: data[i].contributions,
-      class: 'td',
+      class: 'contribution-number',
     });
   }
 }
+
 const select = document.querySelector('header select');
 const root = document.getElementById('root');
 const repoContainer = document.querySelector('.repo-container');
@@ -100,6 +97,7 @@ function main(url) {
           text: repoName,
         });
       });
+
     select.addEventListener('change', () => {
       fetch(
         `https://api.github.com/repos/HackYourFuture/${select.value}/contributors`,
@@ -112,15 +110,12 @@ function main(url) {
         .catch(err => console.error(err));
 
       ulRepo.innerHTML = '';
-      repos.forEach(repo => {
-        if (repo.name === select.value) {
-          renderRepoDetails(repo, ulRepo);
-        }
-      });
+      repos
+        .filter(repo => repo.name === select.value)
+        .forEach(repo => renderRepoDetails(repo, ulRepo));
     });
   });
 }
-
 const HYF_REPOS_URL =
   'https://api.github.com/orgs/HackYourFuture/repos?per_page=100';
 window.onload = () => main(HYF_REPOS_URL);
