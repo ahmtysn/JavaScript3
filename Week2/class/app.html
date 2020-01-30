@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+      const token = 'a25340b556743882f0b59caa70fab0cefda227bd';
+      const promise = axios.get('https://api.github.com/user', {
+        headers: {
+          Authorization: `Brer ${token}`,
+        },
+      });
+      console.log(promise);
+      const secondPromise = promise.then(res => {
+        const userName = res.data.login;
+        console.log('username:', userName);
+        return axios.get(`https://api.github.com/users/${userName}/gists`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+      });
+      console.log('do we have second promise', secondPromise);
+      secondPromise.then(netWorkRequestPromise => {
+        console.log(netWorkRequestPromise);
+      });
+    </script>
+  </body>
+</html>
