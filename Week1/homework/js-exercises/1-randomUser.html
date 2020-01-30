@@ -11,10 +11,15 @@
         const xhr = new XMLHttpRequest();
         xhr.open('GET', 'https://www.randomuser.me/api');
         xhr.responseType = 'json';
-        xhr.onreadystatechange = () => {
+        xhr.onload = () => {
           if (xhr.readyState == 4 && xhr.status == 200) {
             console.log(xhr.response);
+          } else {
+            console.error(`Network error: ${xhr.status} - ${xhr.statusText}`);
           }
+        };
+        xhr.onerror = () => {
+          console.error('Network request failed');
         };
         xhr.send();
       }

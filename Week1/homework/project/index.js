@@ -28,36 +28,6 @@
     return elem;
   }
 
-  // function renderRepoDetails(repo, ul) {
-  //   const li = createAndAppend('li', ul);
-  //   const table = createAndAppend('table', li);
-
-  //   //tr-repository
-  //   let tr = createAndAppend('tr', table);
-  //   createAndAppend('th', tr, { text: 'Repository: ' });
-  //   let td = createAndAppend('td', tr);
-  //   createAndAppend('a', td, {
-  //     href: repo.html_url,
-  //     text: repo.name,
-  //     target: '_blank',
-  //   });
-
-  //   //tr-description
-  //   tr = createAndAppend('tr', table);
-  //   createAndAppend('th', tr, { text: 'Description: ' });
-  //   td = createAndAppend('td', tr, { text: repo.description });
-
-  //   //tr-forks
-  //   tr = createAndAppend('tr', table);
-  //   createAndAppend('th', tr, { text: 'Forks: ' });
-  //   td = createAndAppend('td', tr, { text: repo.forks });
-
-  //   //tr-update
-  //   tr = createAndAppend('tr', table);
-  //   createAndAppend('th', tr, { text: 'Updated: ' });
-  //   td = createAndAppend('td', tr, { text: repo.updated_at });
-  // }
-
   function renderRepoDetails(repo, ul) {
     const li = createAndAppend('li', ul);
     const table = createAndAppend('table', li);
@@ -67,10 +37,8 @@
     for (let i = 0; i < titles.length; ++i) {
       let tr = createAndAppend('tr', table);
       createAndAppend('th', tr, { text: titles[i] });
-      if (i) createAndAppend('td', tr, { text: repo[keys[i]] });
-      // i is 1,2 or 3 (true values)
+      if (i > 0) createAndAppend('td', tr, { text: repo[keys[i]] });
       else {
-        // false value, (i=0)
         const td = createAndAppend('td', tr);
         createAndAppend('a', td, {
           href: repo.html_url,
@@ -94,6 +62,7 @@
       const ul = createAndAppend('ul', root);
       repos
         .sort((curRepo, nextRepo) => curRepo.name.localeCompare(nextRepo.name))
+        .slice(0, 10)
         .forEach(repo => renderRepoDetails(repo, ul));
     });
   }

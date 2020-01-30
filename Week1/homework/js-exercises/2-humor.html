@@ -30,17 +30,12 @@
       getApiXhr(url, (err, data) => {
         if (err) {
           console.error(err);
+          return;
+        }
+        if (data.status == 200 && data.readyState == 4) {
+          makePage(data.response, 'Images with XHR');
         } else {
-          if (data.status == 200 && data.readyState == 4) {
-            makePage(data.response, 'Images with XHR');
-          } else {
-            console.error(
-              'Error(load: ',
-              data.response,
-              'Status: ',
-              data.status,
-            );
-          }
+          console.error('Error(load: ', data.response, 'Status: ', data.status);
         }
       });
 
