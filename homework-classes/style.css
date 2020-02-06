@@ -1,3 +1,96 @@
 .alert-error {
   color: red;
+  background-color: #f8d7da;
+  padding: 20px;
+  width: 95%;
+}
+body {
+  font-family: 'Roboto', sans-serif;
+  padding: 5px 50px 20px 50px;
+  background-color: #f3f3f3;
+}
+header {
+  display: flex;
+  width: 100%;
+  background-color: #3f51b5;
+  color: #f2f2f2;
+  padding: 0px;
+  color: #fff;
+  font-size: 1.6rem;
+}
+header > div,
+select {
+  margin: 20px;
+}
+select {
+  margin-left: 30px;
+  width: 10rem;
+}
+table {
+  padding: 30px;
+  box-shadow: 4px 4px 4px #666;
+  color: #333;
+  width: 100%;
+}
+th {
+  text-align: left;
+}
+td {
+  text-align: inherit;
+}
+
+li {
+  list-style: none;
+}
+.main-container {
+  display: flex;
+}
+.repo-container,
+.contributors-container {
+  width: 100%;
+  margin: 5px;
+}
+.contributors-container ul {
+  padding: 0;
+}
+
+.contribution-container {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  box-shadow: 4px 4px 4px #666;
+}
+.contribution-avatar {
+  flex: 0 0 50px;
+  width: 50px;
+  margin-right: 10px;
+}
+.contribution-name {
+  flex: auto;
+}
+.contribution-number {
+  flex: 0 0 20px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 50%;
+  padding: 3px;
+}
+@media screen and (max-width: 640px) {
+  header,
+  .main-container {
+    flex-direction: column;
+    text-align: center;
+    font-size: 1rem;
+  }
+  select {
+    margin-left: 0px;
+    align-self: center;
+    margin-top: 20px;
+    font-size: 0.7rem;
+  }
+  .repo-container,
+  .contributors-container {
+    font-size: 0.7rem;
+  }
 }
